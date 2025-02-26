@@ -1,7 +1,11 @@
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import javazoom.jl.player.Player;
 
 public class Dado {
 
@@ -17,6 +21,25 @@ public class Dado {
         ImageIcon imgDado = new ImageIcon(getClass().getResource(nombreArchivo));
 
         lbl.setIcon(imgDado);
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void sonar() {
+
+        // cargar el archivo MP3 de audio
+        String nombreArchivoSonido = System.getProperty("user.dir") +
+                "/src/sonidos/DadosLanzados.mp3";
+        try {
+            FileInputStream fis = new FileInputStream(nombreArchivoSonido);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            Player reproductor = new Player(bis);
+            reproductor.play();
+        } catch (Exception ex) {
+        }
+
     }
 
 }
