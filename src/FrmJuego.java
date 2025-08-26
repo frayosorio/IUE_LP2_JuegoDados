@@ -16,6 +16,7 @@ public class FrmJuego extends JFrame {
     private JLabel lblLanzamientos, lblCenas, lblDado1, lblDado2;
     private Dado dado1, dado2;
     private Random r;
+    private int lanzamientos, cenas;
 
     public FrmJuego() {
         setSize(600, 300);
@@ -98,6 +99,10 @@ public class FrmJuego extends JFrame {
     }
 
     private void iniciar() {
+        lanzamientos = 0;
+        cenas = 0;
+        lblLanzamientos.setText(String.valueOf(lanzamientos));
+        lblCenas.setText(String.valueOf(cenas));
 
     }
 
@@ -109,5 +114,14 @@ public class FrmJuego extends JFrame {
         // mostrar los dados
         dado1.mostrar(lblDado1);
         dado2.mostrar(lblDado2);
+
+        // actualizar contadores
+        lanzamientos++;
+        lblLanzamientos.setText(String.valueOf(lanzamientos));
+
+        if (dado1.getNumero() + dado2.getNumero() >= 11) {
+            cenas++;
+            lblCenas.setText(String.valueOf(cenas));
+        }
     }
 }
