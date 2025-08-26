@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +13,9 @@ import javax.swing.WindowConstants;
 
 public class FrmJuego extends JFrame {
 
-    JLabel lblLanzamientos, lblCenas;
+    private JLabel lblLanzamientos, lblCenas, lblDado1, lblDado2;
+    private Dado dado1, dado2;
+    private Random r;
 
     public FrmJuego() {
         setSize(600, 300);
@@ -20,14 +23,14 @@ public class FrmJuego extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
 
-        JLabel lblDado1 = new JLabel();
+        lblDado1 = new JLabel();
         String archivoImagen = "imagenes/3.jpg";
         ImageIcon imgDado = new ImageIcon(getClass().getResource(archivoImagen));
         lblDado1.setIcon(imgDado);
         lblDado1.setBounds(10, 10, imgDado.getIconWidth(), imgDado.getIconHeight());
         getContentPane().add(lblDado1);
 
-        JLabel lblDado2 = new JLabel();
+        lblDado2 = new JLabel();
         lblDado2.setIcon(imgDado);
         lblDado2.setBounds(20 + imgDado.getIconWidth(), 10, imgDado.getIconWidth(), imgDado.getIconHeight());
         getContentPane().add(lblDado2);
@@ -60,22 +63,22 @@ public class FrmJuego extends JFrame {
         lblCenas.setFont(new Font("Tahoma", 1, 72));
         getContentPane().add(lblCenas);
 
-        JButton btnIniciar=new JButton("Iniciar Lanzamientos");
-        btnIniciar.setBounds(10, 20+imgDado.getIconHeight(), 200,25);
+        JButton btnIniciar = new JButton("Iniciar Lanzamientos");
+        btnIniciar.setBounds(10, 20 + imgDado.getIconHeight(), 200, 25);
         getContentPane().add(btnIniciar);
 
-        JButton btnLanzar=new JButton("Lanzar");
-        btnLanzar.setBounds(10, 60+imgDado.getIconHeight(), 200,25);
+        JButton btnLanzar = new JButton("Lanzar");
+        btnLanzar.setBounds(10, 60 + imgDado.getIconHeight(), 200, 25);
         getContentPane().add(btnLanzar);
 
-        //agregar eventos
+        // agregar eventos
         btnIniciar.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 iniciar();
             }
-            
+
         });
 
         btnLanzar.addActionListener(new ActionListener() {
@@ -84,15 +87,27 @@ public class FrmJuego extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lanzar();
             }
-            
+
         });
+
+        // Instanciar los dados y elgenerador de numeros aletorios
+        dado1 = new Dado();
+        dado2 = new Dado();
+
+        r = new Random();
     }
 
-    private void iniciar(){
+    private void iniciar() {
 
     }
 
-    private void lanzar(){
+    private void lanzar() {
+        // lanzar los dados
+        dado1.lanzar(r);
+        dado2.lanzar(r);
 
+        // mostrar los dados
+        dado1.mostrar(lblDado1);
+        dado2.mostrar(lblDado2);
     }
 }
